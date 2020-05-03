@@ -75,8 +75,8 @@ void loop()
     }
     if (11 == process_state && 1 == enable_out) {
       //      SendMessage("DONE THAT SHIT", "0389150066");
-      //      SendMessage(data_right, "0398014545");
-      SendMessage(data_right, "0389150066");
+      SendMessage(data_right, "0398014545");
+      //      SendMessage(data_right, "0389150066");
       //    Serial.println("Send mess ok");
       for (int i = 0; i < 20; i++) {
         digitalWrite(coi, 1);
@@ -246,7 +246,7 @@ void GPS_process() {
 
   if (7 == process_state)
   {
-    send_AT_Read("AT+GPSRD=1");
+    send_AT_Read("AT+GPSRD=2");
     delay(1000);
     read_sim_data();
     if (strstr(data, "OK") != NULL) //Wait for one
@@ -298,6 +298,7 @@ void GPS_process() {
             {
               Serial.println("Yey, we got GPS");
               strcpy(data_right, data);
+              send_AT_Read("AT+GPSRD=0");
               process_state = 10;
               for (int i = 0; i < 10; i++) {
                 digitalWrite(PC13, 1);
